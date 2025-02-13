@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    image: joaovitor98/node-18-alpine-app
+    container_name: app
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - node-app
+    ports:
+      - 3000:3000
+    tty: true
+    restart: unless-stopped
+    depends_on:
+      - database
+  database:
+    image: mysql:latest
+    container_name: database
+    volumes:
+      - ./src/database/lib:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - node-app
+    tty: true
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=applicationDB
+      - MYSQL_USER=lavie
+      - MYSQL_ROOT_PASSWORD=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b854
+      - MYSQL_PASSWORD=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  nginx:
+    build:
+      context: ./src/nginx
+      dockerfile: Dockerfile
+    image: joaovitor98/ngin-alpine
+    container_name: nginx
+    tty: true
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    networks:
+      - node-app
+    depends_on:
+      - app
+
+networks:
+  node-app:
+    driver: bridge
