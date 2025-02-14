@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
+RUN npm install --save
+
 ENV DOCKERIZE_VERSION v0.9.2
 
 RUN apk update --no-cache \

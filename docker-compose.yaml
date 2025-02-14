@@ -34,9 +34,9 @@ services:
       - MYSQL_PASSWORD=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   nginx:
     build:
-      context: ./src/nginx
+      context: ./nginx
       dockerfile: Dockerfile
-    image: joaovitor98/ngin-alpine
+    image: joaovitor98/nginx-alpine
     container_name: nginx
     tty: true
     restart: unless-stopped
