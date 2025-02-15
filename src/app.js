@@ -1,9 +1,12 @@
+require("dotenv").config()
+
 const express = require("express")
 const path = require("path")
+const database = require("./database");
 
 const app = express()
 
-const PORT = 3000
+database.connectDatabase()
 
 app.use(express.static("public"))
 
@@ -11,6 +14,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"))
 })
 
-app.listen(PORT, () => {
-  console.log(`Running serve at port ${PORT}`)
+app.listen(process.env.APPLICATION_PORT, () => {
+  console.log(`Running serve at port ${process.env.APPLICATION_PORT}`)
 })
