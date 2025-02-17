@@ -35,6 +35,11 @@ const SERVICES = DATABASE.define(
         key: "id"
       }
     }
+  },
+
+  {
+    tableName: "services",
+    timestamp: false
   }
 )
 
