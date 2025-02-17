@@ -25,6 +25,7 @@ services:
       - node-app
     tty: true
     restart: unless-stopped
+    command: --innodb-use-native-aio=0
     environment:
       - MYSQL_DATABASE=applicationDB
       - MYSQL_USER=lavie

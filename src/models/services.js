@@ -9,6 +9,7 @@ const SERVICES = DATABASE.define(
     id: {
       type: DATA_TYPES.UUID,
       defaultValue: DATA_TYPES.UUIDV4,
+      primaryKey: true,
       allowNull: false
     },
     date: {
@@ -39,7 +40,7 @@ const SERVICES = DATABASE.define(
 
   {
     tableName: "services",
-    timestamp: false
+    timestamp: true
   }
 )
 

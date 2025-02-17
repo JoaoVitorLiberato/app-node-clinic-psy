@@ -18,7 +18,7 @@ const PSYCHOLOGISTS = DATABASE.define(
       type: DATA_TYPES.STRING,
       allowNull: false
     },
-    documments: {
+    document: {
       type: DATA_TYPES.STRING,
       allowNull: false
     },
@@ -39,7 +39,7 @@ const PSYCHOLOGISTS = DATABASE.define(
 
   {
     tableName: "psychologists",
-    timestamps: false
+    timestamps: true
   }
 )
 

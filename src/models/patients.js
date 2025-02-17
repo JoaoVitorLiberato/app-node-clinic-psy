@@ -31,7 +31,7 @@ const PATIENTS = DATABASE.define(
   },
   {
     tableName: "patients",
-    timestamp: false
+    timestamp: true
   }
 )
 
