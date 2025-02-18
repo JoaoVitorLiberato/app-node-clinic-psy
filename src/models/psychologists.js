@@ -34,6 +34,14 @@ const PSYCHOLOGISTS = DATABASE.define(
     presentation: {
       type: DATA_TYPES.STRING,
       allowNull: false
+    },
+    createdAt: {
+      type: DATA_TYPES.DATE,
+      allowNull: false
+    },
+    updatedAt: {
+      type: DATA_TYPES.DATE,
+      allowNull: false
     }
   },
 

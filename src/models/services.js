@@ -35,6 +35,14 @@ const SERVICES = DATABASE.define(
         model: PSYCHOLOGISTS,
         key: "id"
       }
+    },
+    createdAt: {
+      type: DATA_TYPES.DATE,
+      allowNull: false
+    },
+    updatedAt: {
+      type: DATA_TYPES.DATE,
+      allowNull: false
     }
   },
 

@@ -27,6 +27,14 @@ const PATIENTS = DATABASE.define(
       type: DATA_TYPES.STRING,
       allowNull: false,
       unique: true
+    },
+    createdAt: {
+      type: DATA_TYPES.DATE,
+      allowNull: false
+    },
+    updatedAt: {
+      type: DATA_TYPES.DATE,
+      allowNull: false
     }
   },
   {

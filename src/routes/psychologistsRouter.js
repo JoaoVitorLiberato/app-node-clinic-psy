@@ -1,12 +1,17 @@
 const express = require("express")
 const router = express.Router()
 
-const controller = require("../controllers/psychologists")
-const psychologistPsychologists = new controller()
+const controllerPsychologists = require("../controllers/psychologists")
+const controller = new controllerPsychologists()
 
 
-router.get("/psychologists", psychologistPsychologists.listAllPsychologists)
-router.get("/psychologist/:id", psychologistPsychologists.getPsychologistById)
-router.post("/psychologist", psychologistPsychologists.signupNewPsychologist)
+const validationPsychologists = require("../validators/psychologists")
+const validation = new validationPsychologists()
+
+router.get("/psychologists", controller.listAllPsychologists)
+router.get("/psychologist/:id", validation.listByID, controller.getPsychologistById)
+router.post("/psychologist", controller.signupNewPsychologist)
+router.put("/psychologist/:id", controller.updatePasswordPsychologist)
+router.delete("/psychologist/:id", controller.delelePyschologistSystem)
 
 module.exports = router
