@@ -36,7 +36,6 @@ class authUserController {
       })
 
     } catch (error) {
-      console.log("err", error)
       response.status(400).json({
         code: "errorsignin",
         message: "Error user signin"

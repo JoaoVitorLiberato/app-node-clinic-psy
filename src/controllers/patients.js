@@ -50,17 +50,23 @@ class patientsController {
 
     try {
       const PATIENT_FOUND = await PATIENTS.findOne(
-        PATIENT_DATA.email,
-        {
-          where: { email: PATIENT_DATA.email }
-        }
+        { where: { email: PATIENT_DATA.email } }
       )
 
       if (PATIENT_FOUND) {
-        return response.status(400).json({
-          code: "emailexisnting",
-          message: "Email already exists"
-        })
+        if (String(PATIENT_FOUND.email) === String(PATIENT_DATA.email)) {
+          return response.status(400).json({
+            code: "emailexisnting",
+            message: "Email already exists"
+          })
+        }
+
+        if (String(PATIENT_FOUND.cpf) === String(PATIENT_DATA.cpf)) {
+          return response.status(400).json({
+            code: "cpfexisnting",
+            message: "CPF already exists"
+          })
+        }
       }
 
       await PATIENTS.create({
@@ -71,6 +77,7 @@ class patientsController {
         message: "Patient registered successfully"
       })
     } catch (error) {
+      console.error("error", error)
       return response.status(400).json({
         code: "patientnotsignup",
         message: "Patient not registred"
@@ -108,7 +115,6 @@ class patientsController {
         message: "Updated successfully"
       })
     } catch (error) {
-      console.log("teste", error)
       return response.status(400).json({
         code: "patientnotupdated",
         message: "Patient not updated"
