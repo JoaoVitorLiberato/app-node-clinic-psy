@@ -20,6 +20,10 @@ const SERVICES = DATABASE.define(
       type: DATA_TYPES.STRING,
       allowNull: false,
     },
+    status: {
+      type: DATA_TYPES.STRING,
+      allowNull: false,
+    },
     patient_id: {
       type: DATA_TYPES.UUID,
       allowNull: false,

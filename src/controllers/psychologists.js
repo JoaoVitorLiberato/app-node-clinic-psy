@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs")
 const UUID = require("uuid")
 
 const { PSYCHOLOGISTS, SERVICES } = require("../models")
+const DATABASE = require("../database")
 
 class psychologistController {
   constructor () {}
@@ -40,12 +41,6 @@ class psychologistController {
         attributes: {
           exclude: ["password"]
         },
-        // include: [{ apenas quando tiver o serviço com o id
-        //   model: SERVICES,
-        //   attributes: {
-        //     exclude: ["psychologist_id"]
-        //   }
-        // }]
       })
 
       if (!psychologist) {
@@ -54,9 +49,19 @@ class psychologistController {
           message: "Psychologist not found"
         })
       }
-  
-      return response.status(200).json(psychologist)
-    } catch (error) {
+
+      const services = await DATABASE.query(
+        `
+          SELECT * FROM services 
+            WHERE services.psychologist_id = "${id}";
+        ` 
+      )
+
+      return response.status(200).json({
+        psychologist,
+        services: { data: services[0] || null }.data
+      })
+    } catch {
       return response.status(400).json({
         code: "errorfindpsichologist",
         message: "Error trying to find specific psychologist"
