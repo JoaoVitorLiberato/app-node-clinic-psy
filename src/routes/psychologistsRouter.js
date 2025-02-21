@@ -10,11 +10,11 @@ const validation = new validationPsychologists()
 const controllerPsychologists = require("../controllers/psychologists")
 const controller = new controllerPsychologists()
 
-router.get("/psychologists", middleware.auth, controller.listAllPsychologists)
-router.get("/psychologist/:id", middleware.auth, validation.listByID, controller.getPsychologistById)
-router.post("/psychologist", middleware.auth, validation.signup, controller.signupNewPsychologist)
-router.put("/psychologist/:id", middleware.auth, validation.updateData, controller.updateDataPsychologist)
-router.put("/psychologist/password/:id", middleware.auth, validation.updatePassword, controller.updatePasswordPsychologist)
-router.delete("/psychologist/:id", middleware.auth, controller.delelePyschologistSystem)
+router.get("/psychologists", middleware.auth, controller.list)
+router.get("/psychologist/:id", middleware.auth, validation.listByID, controller.findById)
+router.post("/psychologist", middleware.auth, validation.signup, controller.signup)
+router.put("/psychologist/:id", middleware.auth, validation.update, controller.update)
+router.put("/psychologist/password/:id", middleware.auth, validation.updatePassword, controller.updatePassword)
+router.delete("/psychologist/:id", middleware.auth, controller.delele)
 
 module.exports = router

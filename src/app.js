@@ -7,8 +7,9 @@ const jwtMiddleware = require("./middlewares/jwtApplication")
 
 const app = express()
 
-const psychologistsRouter = require("./routes/psychologistsRouter")
 const authUserRouter = require("./routes/authUserRouter")
+const psychologistsRouter = require("./routes/psychologistsRouter")
+const patientsRouter = require("./routes/patientsRouter")
 
 const AUTH_APPLICATION = require("./middlewares/authApplicationKey")
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 
 app.use("/v1", authUserRouter)
 app.use("/v1", psychologistsRouter)
+app.use("/v1", patientsRouter)
 
 app.listen(process.env.APPLICATION_PORT, () => {
   console.log(`Running serve at port ${process.env.APPLICATION_PORT}`)

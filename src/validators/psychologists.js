@@ -20,7 +20,7 @@ class validatePsychologist {
     })
   })
 
-  updateData = validate({
+  update = validate({
     params: Joi.object({
       id: Joi.string().required()
     }),

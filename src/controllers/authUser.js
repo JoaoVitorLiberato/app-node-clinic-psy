@@ -22,17 +22,17 @@ class authUserController {
         })
       }
 
-      const NEW_DATA_USER = {
+      const DATA_USER_LOGGED = {
         id: PSYCHOLOGIST.id,
         name: PSYCHOLOGIST.fullName,
         email: PSYCHOLOGIST.email
       }
 
-      const TOKEN_JWT = jwt.sign(NEW_DATA_USER, process.env.APPLICATION_SECRET_KEY, { expiresIn: "8h" })
+      const TOKEN_JWT = jwt.sign(DATA_USER_LOGGED, process.env.APPLICATION_SECRET_KEY, { expiresIn: "8h" })
 
       response.status(201).json({
         token: TOKEN_JWT,
-        user: NEW_DATA_USER
+        user: DATA_USER_LOGGED
       })
 
     } catch (error) {

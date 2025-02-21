@@ -7,7 +7,7 @@ const { PSYCHOLOGISTS, SERVICES } = require("../models")
 class psychologistController {
   constructor () {}
 
-  async listAllPsychologists (request, response) {
+  async list (request, response) {
     try {
       const listAllPsychologist = await PSYCHOLOGISTS.findAll({
         limit: 100,
@@ -25,7 +25,7 @@ class psychologistController {
     }
   }
 
-  async getPsychologistById (request, response) {
+  async findById (request, response) {
     const { id } = request.params
 
     try {
@@ -64,7 +64,7 @@ class psychologistController {
     }
   }
 
-  async signupNewPsychologist (request, response) {
+  async signup (request, response) {
     const PSYCHOLOGIST_DATA = await request.body
 
     try {
@@ -95,7 +95,7 @@ class psychologistController {
     }
   }
 
-  async updatePasswordPsychologist (request, response) {
+  async updatePassword (request, response) {
     const { id } = request.params
     const PSYCHOLOGIST_DATA = request.body
 
@@ -134,7 +134,7 @@ class psychologistController {
     }
   }
 
-  async updateDataPsychologist (request, response) {
+  async update (request, response) {
     const { id } = request.params
     const PSYCHOLOGIST_DATA = request.body
 
@@ -163,7 +163,7 @@ class psychologistController {
     }
   }
 
-  async delelePyschologistSystem (request, response) {
+  async delele (request, response) {
     const { id } = request.params
 
     try {
