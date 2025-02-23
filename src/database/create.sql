@@ -47,3 +47,10 @@ CREATE TABLE `services` (
 DROP TABLE `psychologists`;
 DROP TABLE `patients`;
 DROP TABLE `services`;
+
+SELECT * FROM `services` 
+JOIN `psychologists` `psychologist` ON `services`.`psychologist_id` = `psychologist`.`id`
+WHERE `services`.`psychologist_id`= "0381a19c-83b6-4872-8a95-51d52d0517bf";
+
+SELECT * FROM `services`
+  WHERE `createdAt` BETWEEN "2025-02-21, 00:00:00" AND "2025-02-21, 23:59:59";

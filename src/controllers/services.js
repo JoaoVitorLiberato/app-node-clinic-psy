@@ -1,4 +1,4 @@
-const { SERVICES } = require("../models")
+const { SERVICES, PATIENTS, PSYCHOLOGISTS } = require("../models")
 const DATABASE = require("../database")
 const { dateDBQuery } = require("../helpers/dateFormated")
 
@@ -31,6 +31,24 @@ class servicesController {
 
       return response.status(200).json(SERVICES_BY_DATE[0])
     } catch {
+      return response.status(400).json(err)
+    }
+  }
+
+  async listById (request, response) {
+    const { id } = request.params
+
+    try {
+      const SERVICE = await SERVICES.findByPk(id)
+      const PSYCHOLOGIST = await PSYCHOLOGISTS.findByPk(SERVICE.psychologist_id)
+      const PATIENT = await PATIENTS.findByPk(SERVICE.patient_id)
+
+      return response.status(200).json({
+        ...SERVICE,
+        patient: PATIENT,
+        psychologist: PSYCHOLOGIST
+      })
+    } catch (err){
       return response.status(400).json(err)
     }
   }
