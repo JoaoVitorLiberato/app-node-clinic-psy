@@ -39,17 +39,75 @@ class servicesController {
     const { id } = request.params
 
     try {
-      const SERVICE = await SERVICES.findByPk(id)
-      const PSYCHOLOGIST = await PSYCHOLOGISTS.findByPk(SERVICE.psychologist_id)
-      const PATIENT = await PATIENTS.findByPk(SERVICE.patient_id)
+      const QUERY = await DATABASE.query(`
+        SELECT * FROM services WHERE id ="${id}"`
+      )
+      const PSYCHOLOGIST = await PSYCHOLOGISTS.findByPk(QUERY[0][0].psychologist_id, {
+        attributes: { exclude: ["password"] }
+      })
+      const PATIENT = await PATIENTS.findByPk(QUERY[0][0].patient_id)
 
       return response.status(200).json({
-        ...SERVICE,
+        ...QUERY[0][0],
         patient: PATIENT,
         psychologist: PSYCHOLOGIST
       })
-    } catch (err){
-      return response.status(400).json(err)
+    } catch {
+      return response.status(400).json({
+        code: "errorlistybyid",
+        message: "Error find service especify"
+      })
+    }
+  }
+
+  async signup (request, response) {
+    const SERVICE_DATA = request.body
+
+    try {
+      await SERVICES.create(SERVICE_DATA)
+      return response.status(201).json({
+        message: "Service created successfully!"
+      })
+    } catch {
+      return response.status(400).json({
+        code: "errorcreateservice",
+        message: "Error create"
+      })
+    }
+  }
+
+  async update (request, response) {
+    const { id } = request.params
+    const SERVICE_DATA = response.body
+
+    try {
+      await SERVICES.update(
+        SERVICE_DATA,
+        { where: { id } }
+      )
+
+      return response.status(201).json({
+        message: "Service updated successfully"
+      })
+    } catch {
+      return response.status(400).json({
+        code: "errorupdateservice",
+        message: "Update failed"
+      })
+    }
+  }
+
+  async delete (request, response) {
+    const { id } = request.params
+
+    try {
+      await SERVICES.destroy({ where: { id } })
+      return response.status(204).json({})
+    } catch {
+      return response.status(400).json({
+        code: "errordeleteservice",
+        message: "Error delete service"
+      })
     }
   }
 }
