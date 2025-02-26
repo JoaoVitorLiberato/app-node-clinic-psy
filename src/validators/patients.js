@@ -29,6 +29,12 @@ class patientsValidation {
       cpf: Joi.string().min(11).max(11).required(),
     })
   })
+
+  consult = validate({
+    params: Joi.object({
+      cpf: Joi.string().required()
+    })
+  })
 }
 
 module.exports = patientsValidation

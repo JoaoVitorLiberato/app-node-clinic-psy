@@ -1,4 +1,5 @@
-const { PATIENTS } = require("../models")
+const { PATIENTS, PSYCHOLOGISTS } = require("../models")
+const DATABASE = require("../database")
 const UUID = require("uuid")
 
 class patientsController {
@@ -150,6 +151,37 @@ class patientsController {
         code: "patientnotdeleted",
         message: "Patient not deleted"
       })
+    }
+  }
+
+  async consult (request, response) {
+    const { cpf } = request.params
+
+    try {
+      const PATIENT = await PATIENTS.findOne(
+        { where: { cpf } },
+      )
+
+      const SERVICE = await DATABASE.query(
+        `SELECT * FROM services WHERE patient_id="${PATIENT.id}"`
+      )
+
+      const PSYCHOLOGIST = await PSYCHOLOGISTS.findByPk(SERVICE[0][0].psychologist_id)
+
+
+      return response.status(200).json({
+        ...PATIENT.dataValues,
+        service: SERVICE[0][0],
+        psychologist: {
+          id: PSYCHOLOGIST.id,
+          name: PSYCHOLOGIST.fullName,
+          sigla: PSYCHOLOGIST.sigla,
+          email: PSYCHOLOGIST.email,
+          presentation: PSYCHOLOGIST.presentation,
+        }
+      })
+    } catch {
+      return response.status(400).json("error")
     }
   }
 }

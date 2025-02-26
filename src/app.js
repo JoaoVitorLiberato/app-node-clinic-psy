@@ -17,7 +17,7 @@ const AUTH_APPLICATION = require("./middlewares/authApplicationKey")
 app.use(AUTH_APPLICATION)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(jwtMiddleware.unless({ path: ["/", "/v1/login"] }))
+app.use(jwtMiddleware.unless({ path: ["/", "/v1/login", "/v1/patient-service"] }))
 
 DATABASE.connectDatabase()
 

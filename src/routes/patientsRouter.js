@@ -10,6 +10,7 @@ const validation = new patientsValidation()
 const patientsController = require("../controllers/patients")
 const controller = new patientsController()
 
+router.get("/patient-service/:cpf", validation.consult, controller.consult)
 router.get("/patients", middleware.auth, controller.list)
 router.get("/patient/:id", middleware.auth, validation.paramID, controller.findByID)
 router.post("/patient", middleware.auth, validation.data, controller.signup)
